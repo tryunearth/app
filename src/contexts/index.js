@@ -1,1 +1,1 @@
-export { default as ThingsContext } from './ThingsContext'
+export { default as AppProviders } from './AppProviders'

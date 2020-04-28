@@ -1,12 +1,14 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+
+import { AppProviders } from './contexts'
 import App from './App'
 import * as serviceWorker from './serviceWorker'
 
 ReactDOM.render(
-  <React.StrictMode>
+  <AppProviders>
     <App />
-  </React.StrictMode>,
+  </AppProviders>,
   document.getElementById('root'),
 )
 

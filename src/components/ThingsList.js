@@ -1,9 +1,9 @@
-import React, { useContext } from 'react'
+import React from 'react'
 
-import { ThingsContext } from '../contexts'
+import { useThings } from '../contexts/ThingsContext'
 
 const ThingsList = () => {
-  const things = useContext(ThingsContext)
+  const { things } = useThings()
   return (
     <div>
       {things.length > 0 && (
