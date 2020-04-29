@@ -20,7 +20,7 @@ const Layout = ({ filters, children }) => (
       style={{ display: 'flex', justifyContent: 'flex-start', width: '100%' }}
     >
       {/* TODO - turn into Sidebar */}
-      <aside style={{ width: '250px', marginRight: '20px' }}>
+      <aside style={{ width: '100%', maxWidth: '250px', marginRight: '20px' }}>
         <h3>
           <NavLink to='/'>Home</NavLink>
         </h3>
