@@ -1,3 +1,5 @@
 export { default as Home } from './Home'
 export { default as Subreddit } from './Subreddit'
 export { default as Tag } from './Tag'
+export { default as Comments } from './Comments'
+export { default as NSFW } from './NSFW'

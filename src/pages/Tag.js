@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react'
-
-import { ThingsList } from '../components'
+import { Heading } from '@chakra-ui/core'
 
 const Tag = ({ updateCurrentFilter, tag }) => {
   useEffect(() => {
@@ -9,8 +8,9 @@ const Tag = ({ updateCurrentFilter, tag }) => {
 
   return (
     <>
-      <h2>{tag}</h2>
-      <ThingsList />
+      <Heading as='h3' size='xl' mb={4} fontWeight='bold'>
+        {tag}
+      </Heading>
     </>
   )
 }

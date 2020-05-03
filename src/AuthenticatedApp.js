@@ -3,7 +3,7 @@ import { Router, Redirect } from '@reach/router'
 
 import { useThings } from './contexts/ThingsContext'
 import { useAuth } from './contexts/AuthContext'
-import { Home, Subreddit, Tag } from './pages'
+import { Home, Subreddit, Tag, Comments, NSFW } from './pages'
 import { Layout } from './components'
 
 const NotFound = () => <Redirect from='/login' to='/' noThrow />
@@ -23,7 +23,7 @@ function AuthenticatedApp() {
   const [filters, setFilters] = useState({})
   const [currentFilter, setCurrentFilter] = useState({})
 
-  const { token, logout } = useAuth()
+  const { token } = useAuth()
   const { updateThings } = useThings()
 
   useEffect(() => {
@@ -58,11 +58,15 @@ function AuthenticatedApp() {
 
   return (
     <Layout filters={filters}>
-      <button onClick={() => logout()}>Logout</button>
       <Router>
         <NotFound default />
         <Home updateCurrentFilter={setCurrentFilter} path='/' />
-
+        {/**
+         * TODO - make preference to password-protect this route, similar to
+         * Snapchat's "My Eyes Only" (protect_nsfw_content: Boolean)
+         */}
+        <NSFW updateCurrentFilter={setCurrentFilter} path='/nsfw' />
+        <Comments updateCurrentFilter={setCurrentFilter} path='/comments' />
         {/**
          * @reach/router does not support regular expressions matching in path,
          * thus we must declare a route for each handler.
@@ -77,7 +81,6 @@ function AuthenticatedApp() {
           updateCurrentFilter={setCurrentFilter}
           path='/subreddits/u/:sub'
         />
-
         <Tag updateCurrentFilter={setCurrentFilter} path='/tags/:tag' />
       </Router>
     </Layout>

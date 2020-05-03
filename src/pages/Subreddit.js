@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
 import { useLocation } from '@reach/router'
-
-import { ThingsList } from '../components'
+import { Heading } from '@chakra-ui/core'
 
 const Subreddit = ({ updateCurrentFilter, sub }) => {
   const { pathname } = useLocation()
@@ -18,8 +17,9 @@ const Subreddit = ({ updateCurrentFilter, sub }) => {
 
   return (
     <>
-      <h2>{subredditNamePrefixed}</h2>
-      <ThingsList />
+      <Heading as='h3' size='xl' mb={4} fontWeight='bold'>
+        {subredditNamePrefixed}
+      </Heading>
     </>
   )
 }

@@ -1,18 +1,18 @@
 import React, { useEffect } from 'react'
 import { Heading } from '@chakra-ui/core'
 
-const Home = ({ updateCurrentFilter }) => {
+const Comments = ({ updateCurrentFilter }) => {
   useEffect(() => {
-    updateCurrentFilter({})
+    updateCurrentFilter({ name: 'comment' })
   }, [updateCurrentFilter])
 
   return (
     <>
       <Heading as='h3' size='xl' mb={4} fontWeight='bold'>
-        My Feed
+        Comments
       </Heading>
     </>
   )
 }
 
-export default Home
+export default Comments
