@@ -5,7 +5,7 @@ import {
   Collapse,
   List,
   ListItem,
-  ListIcon,
+  Icon,
   Stack,
   useDisclosure,
 } from '@chakra-ui/core'
@@ -25,10 +25,8 @@ const FilterCollapse = ({ title, list }) => {
         onClick={onToggle}
         cursor='pointer'
       >
-        <ListIcon
-          size='12px'
-          icon='triangle-down'
-          style={isOpen ? {} : { transform: 'rotate(-90deg)' }}
+        <Icon
+          name={isOpen ? 'feather-chevron-down' : 'feather-chevron-right'}
         />
         <Text>{[title[0].toUpperCase(), ...title.substring(1)].join('')}</Text>
       </Stack>

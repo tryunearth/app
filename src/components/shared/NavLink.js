@@ -32,7 +32,7 @@ const NavLink = ({ icon, children, ...rest }) => {
         style={{ display: 'flex', width: '100%' }}
       >
         <Flex d='flex' justifyContent='flex-start' alignItems='center'>
-          {icon && <Icon size={4} name={icon} mr={1} />}
+          {icon && <Icon size={4} name={icon} mr={2} />}
           {children}
         </Flex>
       </Link>

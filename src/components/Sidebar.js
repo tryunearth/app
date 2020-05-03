@@ -6,7 +6,7 @@ import { NavLink, FilterCollapse } from '../components'
 const Sidebar = ({ filters }) => (
   <Box as='aside' mr={8} w='250px' overflowY='scroll'>
     <Stack isInline justify='flex-start' align='center' cursor='pointer' mb={4}>
-      <NavLink to='/' icon='info'>
+      <NavLink to='/' icon='feather-home'>
         Home
       </NavLink>
     </Stack>
@@ -14,12 +14,12 @@ const Sidebar = ({ filters }) => (
       Filters
     </Text>
     <Stack isInline justify='flex-start' align='center' cursor='pointer'>
-      <NavLink to='/comments' icon='chat'>
+      <NavLink to='/comments' icon='feather-comment'>
         Comments
       </NavLink>
     </Stack>
     <Stack isInline justify='flex-start' align='center' cursor='pointer'>
-      <NavLink to='/nsfw' icon='not-allowed'>
+      <NavLink to='/nsfw' icon='feather-warning'>
         NSFW
       </NavLink>
     </Stack>
