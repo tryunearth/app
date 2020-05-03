@@ -1,12 +1,11 @@
 import React from 'react'
-import { Box, Image, Text, Link, Badge } from '@chakra-ui/core'
-import DeferRenderHoc from 'defer-render-hoc'
+import { Box, Flex, Image, Text, Link, Badge } from '@chakra-ui/core'
 
 import { useThings } from '../contexts/ThingsContext'
+import { EmptyState, LoadingState } from '../components'
 
 const Thing = React.memo(({ thing }) => (
-  <Box
-    d='flex'
+  <Flex
     justifyContent='space-between'
     w='100%'
     maxW='full'
@@ -67,25 +66,15 @@ const Thing = React.memo(({ thing }) => (
       // TODO - make this a preference (blur_nsfw_pics: Boolean)
       // style={thing.over_18 ? { filter: 'blur(4px)' } : null}
     />
-  </Box>
+  </Flex>
 ))
 
 const ThingsList = () => {
-  const { things } = useThings()
-  if (things.length === 0)
-    return (
-      <Text>
-        Oh how sad{' '}
-        <span role='img' aria-label='frowning face'>
-          😔
-        </span>{' '}
-        <br /> It appears this list is empty
-      </Text>
-    )
+  const { things, isLoading } = useThings()
+  if (isLoading) return <LoadingState />
+  if (things.length === 0) return <EmptyState />
   // TODO - use show/hide NSFW preference to filter nsfw content (show_nsfw_content: Boolean)
   return things.map((thing) => <Thing key={thing.id} thing={thing} />)
 }
 
-const WrappedThingsList = DeferRenderHoc(ThingsList)
-
-export default WrappedThingsList
+export default ThingsList

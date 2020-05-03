@@ -24,7 +24,7 @@ function AuthenticatedApp() {
   const [currentFilter, setCurrentFilter] = useState({})
 
   const { token } = useAuth()
-  const { updateThings } = useThings()
+  const { updateThings, updateIsLoading } = useThings()
 
   useEffect(() => {
     const fetchFilters = async () => {
@@ -39,6 +39,7 @@ function AuthenticatedApp() {
 
   useEffect(() => {
     const fetchThings = async () => {
+      updateIsLoading(true)
       let queryParam
       if (currentFilter) {
         queryParam = toQueryString(currentFilter)
@@ -51,6 +52,7 @@ function AuthenticatedApp() {
       )
       const data = await response.json()
       updateThings(data.payload ? data.payload.things : [])
+      setTimeout(() => updateIsLoading(false), 750)
     }
     fetchThings()
     // eslint-disable-next-line react-hooks/exhaustive-deps
