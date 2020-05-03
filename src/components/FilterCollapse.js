@@ -1,5 +1,6 @@
 import React from 'react'
 import {
+  Box,
   Text,
   Collapse,
   List,
@@ -15,8 +16,9 @@ const FilterCollapse = ({ title, list }) => {
   const { isOpen, onToggle } = useDisclosure()
 
   return (
-    <ListItem pl={2}>
+    <Box pl={2}>
       <Stack
+        minH='40px'
         isInline
         justify='flex-start'
         align='center'
@@ -41,7 +43,7 @@ const FilterCollapse = ({ title, list }) => {
           ))}
         </List>
       </Collapse>
-    </ListItem>
+    </Box>
   )
 }
 

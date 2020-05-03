@@ -1,15 +1,18 @@
 import React from 'react'
-import { Box, Stack, List } from '@chakra-ui/core'
+import { Box, Stack, Text } from '@chakra-ui/core'
 
 import { NavLink, FilterCollapse } from '../components'
 
 const Sidebar = ({ filters }) => (
   <Box as='aside' mr={8} w='250px' overflowY='scroll'>
-    <Stack isInline justify='flex-start' align='center' cursor='pointer'>
+    <Stack isInline justify='flex-start' align='center' cursor='pointer' mb={4}>
       <NavLink to='/' icon='info'>
         Home
       </NavLink>
     </Stack>
+    <Text mb={3} pl={2} color='gray.400' fontWeight='semibold'>
+      Filters
+    </Text>
     <Stack isInline justify='flex-start' align='center' cursor='pointer'>
       <NavLink to='/comments' icon='chat'>
         Comments
@@ -21,9 +24,9 @@ const Sidebar = ({ filters }) => (
       </NavLink>
     </Stack>
     {Object.keys(filters).map((filter, index, arr) => (
-      <List key={filter} pb={index === arr.length - 1 ? 8 : 0}>
+      <Box key={filter} pb={index === arr.length - 1 ? 6 : 0}>
         <FilterCollapse title={filter} list={filters[filter]} />
-      </List>
+      </Box>
     ))}
   </Box>
 )
