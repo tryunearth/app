@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Heading } from '@chakra-ui/core'
 
 import { useThings } from '../contexts/ThingsContext'
+import { SEO } from '../components'
 
 const NSFW = () => {
   const { updateCurrentFilter } = useThings()
@@ -13,6 +14,7 @@ const NSFW = () => {
 
   return (
     <>
+      <SEO title='NSFW' />
       <Heading as='h3' size='xl' mb={4} fontWeight='bold'>
         NSFW
       </Heading>

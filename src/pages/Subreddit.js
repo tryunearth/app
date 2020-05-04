@@ -3,6 +3,7 @@ import { useLocation } from '@reach/router'
 import { Heading } from '@chakra-ui/core'
 
 import { useThings } from '../contexts/ThingsContext'
+import { SEO } from '../components'
 
 const Subreddit = ({ sub }) => {
   const { updateCurrentFilter } = useThings()
@@ -21,6 +22,7 @@ const Subreddit = ({ sub }) => {
 
   return (
     <>
+      <SEO title={`Subreddit: ${subredditNamePrefixed}`} />
       <Heading as='h3' size='xl' mb={4} fontWeight='bold'>
         {subredditNamePrefixed}
       </Heading>
