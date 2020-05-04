@@ -25,6 +25,8 @@ const Header = () => {
       align='center'
       justify='space-between'
       wrap='wrap'
+      h='47px'
+      boxSizing='content-box'
       py={2}
       px={24}
       borderBottom='1px'
@@ -70,7 +72,7 @@ const Header = () => {
       >
         <Menu>
           <MenuButton as='button'>
-            <Avatar name={user.username} src='https://bit.ly/dan-abramov' />
+            <Avatar name={user.username} src={user.avatar_img} size='sm' />
           </MenuButton>
           <MenuList placement='bottom-end'>
             <MenuGroup title={`Hello, ${user.username}`}>
