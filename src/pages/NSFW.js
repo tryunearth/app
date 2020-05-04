@@ -1,10 +1,15 @@
 import React, { useEffect } from 'react'
 import { Heading } from '@chakra-ui/core'
 
-const NSFW = ({ updateCurrentFilter }) => {
+import { useThings } from '../contexts/ThingsContext'
+
+const NSFW = () => {
+  const { updateCurrentFilter } = useThings()
+
   useEffect(() => {
     updateCurrentFilter({ over_18: true })
-  }, [updateCurrentFilter])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>

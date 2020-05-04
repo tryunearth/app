@@ -2,7 +2,10 @@ import React, { useEffect } from 'react'
 import { useLocation } from '@reach/router'
 import { Heading } from '@chakra-ui/core'
 
-const Subreddit = ({ updateCurrentFilter, sub }) => {
+import { useThings } from '../contexts/ThingsContext'
+
+const Subreddit = ({ sub }) => {
+  const { updateCurrentFilter } = useThings()
   const { pathname } = useLocation()
   const subredditNamePrefixed = pathname.match(/[ru]\/\w+/)[0]
   const formattedSubredditName = subredditNamePrefixed.startsWith('u/')
@@ -13,7 +16,8 @@ const Subreddit = ({ updateCurrentFilter, sub }) => {
     updateCurrentFilter({
       subreddit: formattedSubredditName,
     })
-  }, [sub, formattedSubredditName, updateCurrentFilter])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sub, formattedSubredditName])
 
   return (
     <>

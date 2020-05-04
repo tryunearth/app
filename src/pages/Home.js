@@ -1,10 +1,15 @@
 import React, { useEffect } from 'react'
 import { Heading } from '@chakra-ui/core'
 
-const Home = ({ updateCurrentFilter }) => {
+import { useThings } from '../contexts/ThingsContext'
+
+const Home = () => {
+  const { updateCurrentFilter } = useThings()
+
   useEffect(() => {
     updateCurrentFilter({})
-  }, [updateCurrentFilter])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
     <>
