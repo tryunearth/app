@@ -34,7 +34,7 @@ const FilterCollapse = ({ title, list }) => {
         <List>
           {list.map((filterItem) => (
             <ListItem key={filterItem.id ? filterItem.id : filterItem.name}>
-              <NavLink to={`${title}/${filterItem.name}`}>
+              <NavLink to={`/${title}/${filterItem.name}`}>
                 {filterItem.name}
               </NavLink>
             </ListItem>

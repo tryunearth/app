@@ -41,7 +41,7 @@ const ThingsProvider = ({ children }) => {
       )
       const data = await response.json()
       updateThings(data.payload ? data.payload.things : [])
-      setTimeout(() => updateIsLoading(false), 750)
+      updateIsLoading(false)
     }
     fetchThings()
     // eslint-disable-next-line react-hooks/exhaustive-deps

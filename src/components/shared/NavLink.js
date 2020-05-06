@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Link } from '@reach/router'
+import React, { useState, useEffect } from 'react'
+import { Link, useLocation } from '@reach/router'
 import { PseudoBox, Flex, Icon } from '@chakra-ui/core'
 
 /**
@@ -8,7 +8,12 @@ import { PseudoBox, Flex, Icon } from '@chakra-ui/core'
  * @see https://reach.tech/router/example/active-links
  */
 const NavLink = ({ icon, children, ...rest }) => {
+  const location = useLocation()
   const [isActive, setIsActive] = useState(false)
+  useEffect(() => {
+    setIsActive(location.pathname === rest.to)
+  }, [location, rest.to])
+
   return (
     <PseudoBox
       d='flex'
@@ -23,14 +28,7 @@ const NavLink = ({ icon, children, ...rest }) => {
       cursor='pointer'
       _hover={{ color: 'orange.700' }}
     >
-      <Link
-        {...rest}
-        getProps={({ isCurrent }) => {
-          if (isCurrent) setIsActive(true)
-          else setIsActive(false)
-        }}
-        style={{ display: 'flex', width: '100%' }}
-      >
+      <Link {...rest} style={{ display: 'flex', width: '100%' }}>
         <Flex d='flex' justifyContent='flex-start' alignItems='center'>
           {icon && <Icon size={4} name={icon} mr={2} />}
           {children}
