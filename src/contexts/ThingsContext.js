@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
 
+import config from '../config'
 import { useAuth } from './AuthContext'
 
 const ThingsContext = createContext([])
@@ -34,7 +35,7 @@ const ThingsProvider = ({ children }) => {
         queryParam = toQueryString(currentFilter)
       }
       const response = await fetch(
-        `http://localhost:5000/v1/things${queryParam}`,
+        `${config.backend.BASE_URL}/things${queryParam}`,
         {
           headers: { Authorization: `bearer ${token}` },
         },

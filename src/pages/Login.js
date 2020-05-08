@@ -3,11 +3,12 @@ import { Redirect } from '@reach/router'
 import { OauthReceiver, OauthSender } from 'react-oauth-flow'
 import qs from 'querystring'
 
+import config from '../config'
 import { useAuth } from '../contexts/AuthContext'
 import { SEO } from '../components'
 
-const CLIENT_URL = process.env.REACT_APP_CLIENT_URL
-const CLIENT_ID = process.env.REACT_APP_CLIENT_ID
+const CLIENT_URL = config.reddit.CLIENT_URL
+const CLIENT_ID = config.reddit.CLIENT_ID
 
 const Login = () => {
   const { user, token } = useAuth()
@@ -52,7 +53,7 @@ const ReceiveFromReddit = () => {
         redirect_uri: `${CLIENT_URL}/auth/reddit`,
       }
 
-      const redditProxyAccessTokenUrl = 'http://localhost:5000/v1/auth/login'
+      const redditProxyAccessTokenUrl = `${config.backend.BASE_URL}/auth/login`
       const response = await fetch(redditProxyAccessTokenUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },

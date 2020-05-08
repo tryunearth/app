@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Router, Redirect } from '@reach/router'
 
+import config from './config'
 import { useAuth } from './contexts/AuthContext'
 import { Home, Subreddit, Tag, Comments, NSFW } from './pages'
 import { Layout } from './components'
@@ -13,7 +14,7 @@ function AuthenticatedApp() {
 
   useEffect(() => {
     const fetchFilters = async () => {
-      const response = await fetch('http://localhost:5000/v1/filters', {
+      const response = await fetch(`${config.backend.BASE_URL}/filters`, {
         headers: { Authorization: `bearer ${token}` },
       })
       const data = await response.json()

@@ -16,6 +16,7 @@ import {
   useToast,
 } from '@chakra-ui/core'
 
+import config from '../config'
 import { useAuth } from '../contexts/AuthContext'
 
 const ModalText = () => (
@@ -60,7 +61,7 @@ const OnboardingModal = () => {
   const [isLoading, setIsLoading] = useState(false)
 
   const syncSaves = async () => {
-    const response = await fetch('http://localhost:5000/v1/reddit/sync', {
+    const response = await fetch(`${config.backend.BASE_URL}/reddit/sync`, {
       headers: { Authorization: `bearer ${token}` },
     })
     const data = await response.json()
