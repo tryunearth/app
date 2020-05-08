@@ -1,10 +1,11 @@
 import React from 'react'
 import { Box } from '@chakra-ui/core'
 
-import { ThingsList, Header, Sidebar } from '../components'
+import { ThingsList, Header, Sidebar, OnboardingModal } from '../components'
 
 const Layout = React.memo(({ filters, children }) => (
   <Box h='100%'>
+    <OnboardingModal />
     <Header />
     <Box
       as='main'

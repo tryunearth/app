@@ -8,7 +8,7 @@ import { Layout } from './components'
 const NotFound = () => <Redirect from='/login' to='/' noThrow />
 
 function AuthenticatedApp() {
-  const { token } = useAuth()
+  const { token, user } = useAuth()
   const [filters, setFilters] = useState({})
 
   useEffect(() => {
@@ -20,7 +20,7 @@ function AuthenticatedApp() {
       setFilters(data.payload.filters)
     }
     fetchFilters()
-  }, [token])
+  }, [token, user])
 
   return (
     <Layout filters={filters}>

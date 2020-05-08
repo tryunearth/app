@@ -20,7 +20,7 @@ const ThingsProvider = ({ children }) => {
   const [isLoading, setIsLoading] = useState(false)
   const [currentFilter, setCurrentFilter] = useState({})
 
-  const { token } = useAuth()
+  const { token, user } = useAuth()
 
   const updateThings = (newThings) => setThings(newThings)
   const updateIsLoading = (value) => setIsLoading(value)
@@ -45,7 +45,7 @@ const ThingsProvider = ({ children }) => {
     }
     fetchThings()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token, currentFilter])
+  }, [token, user, currentFilter])
 
   return (
     <ThingsContext.Provider

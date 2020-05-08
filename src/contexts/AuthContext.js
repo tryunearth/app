@@ -25,7 +25,9 @@ const AuthProvider = ({ children }) => {
   const isLoggedIn = user && token ? true : false
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout, isLoggedIn }}>
+    <AuthContext.Provider
+      value={{ user, token, login, logout, isLoggedIn, updateUser }}
+    >
       {children}
     </AuthContext.Provider>
   )
