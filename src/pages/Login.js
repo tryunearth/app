@@ -6,8 +6,8 @@ import qs from 'querystring'
 import { useAuth } from '../contexts/AuthContext'
 import { SEO } from '../components'
 
-const CLIENT_URL = process.env.CLIENT_URL || 'http://localhost:3000'
-const CLIENT_ID = process.env.CLIENT_ID || 'E_kbLYovU7c6TA'
+const CLIENT_URL = process.env.REACT_APP_CLIENT_URL
+const CLIENT_ID = process.env.REACT_APP_CLIENT_ID
 
 const Login = () => {
   const { user, token } = useAuth()
