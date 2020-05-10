@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react'
+import { useLocation } from '@reach/router'
 
 import config from '../config'
 import { useAuth } from './AuthContext'
@@ -17,11 +18,30 @@ const toQueryString = (object) =>
     .join('&')
 
 const ThingsProvider = ({ children }) => {
+  const location = useLocation()
+  const { token, user } = useAuth()
+
   const [things, setThings] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-  const [currentFilter, setCurrentFilter] = useState({})
-
-  const { token, user } = useAuth()
+  const [currentFilter, setCurrentFilter] = useState(() => {
+    const { pathname } = location
+    if (pathname === '/comments') {
+      return { name: 'comment' }
+    } else if (pathname === '/nsfw') {
+      return { over_18: true }
+    } else if (/\/subreddits\/[ru]\/\w+/.test(pathname)) {
+      const subredditNamePrefixed = pathname.match(/[ru]\/\w+/)[0]
+      const formattedSubredditName = subredditNamePrefixed.startsWith('u/')
+        ? subredditNamePrefixed.replace('u/', 'u_')
+        : subredditNamePrefixed.replace('r/', '')
+      return { subreddit: formattedSubredditName }
+    } else if (/\/tags\/[^/]+/.test(pathname)) {
+      const tag = decodeURI(location.pathname.split('/')[2])
+      return { tag }
+    } else {
+      return {}
+    }
+  })
 
   const updateThings = (newThings) => setThings(newThings)
   const updateIsLoading = (value) => setIsLoading(value)
