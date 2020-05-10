@@ -36,7 +36,7 @@ const ThingsProvider = ({ children }) => {
         : subredditNamePrefixed.replace('r/', '')
       return { subreddit: formattedSubredditName }
     } else if (/\/tags\/[^/]+/.test(pathname)) {
-      const tag = decodeURI(location.pathname.split('/')[2])
+      const tag = decodeURI(pathname.split('/')[2])
       return { tag }
     } else {
       return {}

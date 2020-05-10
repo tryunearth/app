@@ -11,7 +11,7 @@ const NavLink = ({ icon, children, ...rest }) => {
   const location = useLocation()
   const [isActive, setIsActive] = useState(false)
   useEffect(() => {
-    setIsActive(location.pathname === rest.to)
+    setIsActive(decodeURI(location.pathname) === rest.to)
   }, [location, rest.to])
 
   return (
