@@ -23,11 +23,16 @@ const Sidebar = ({ filters }) => (
         NSFW
       </NavLink>
     </Stack>
-    {Object.keys(filters).map((filter, index, arr) => (
-      <Box key={filter} pb={index === arr.length - 1 ? 6 : 0}>
-        <FilterCollapse title={filter} list={filters[filter]} />
-      </Box>
-    ))}
+    <Stack isInline justify='flex-start' align='center' cursor='pointer'>
+      <FilterCollapse
+        label='Subreddits'
+        prefix='subreddits'
+        list={filters['subreddits']}
+      />
+    </Stack>
+    <Stack isInline justify='flex-start' align='center' cursor='pointer'>
+      <FilterCollapse label='Tags' prefix='tags' list={filters['tags']} />
+    </Stack>
   </Box>
 )
 
