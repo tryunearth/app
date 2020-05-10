@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
-  Button,
   Modal,
   ModalHeader,
   ModalBody,
@@ -13,11 +12,10 @@ import {
   Box,
   List,
   ListItem,
-  useToast,
 } from '@chakra-ui/core'
 
-import config from '../config'
 import { useAuth } from '../contexts/AuthContext'
+import { SyncButton } from '../components'
 
 const ModalText = () => (
   <Stack spacing={4}>
@@ -55,25 +53,7 @@ const ModalText = () => (
 )
 
 const OnboardingModal = () => {
-  const { token, user, updateUser } = useAuth()
-  const toast = useToast()
-
-  const [isLoading, setIsLoading] = useState(false)
-
-  const syncSaves = async () => {
-    const response = await fetch(`${config.backend.BASE_URL}/reddit/sync`, {
-      headers: { Authorization: `bearer ${token}` },
-    })
-    const data = await response.json()
-    updateUser(data.payload.user)
-    toast({
-      title: "You're All Set",
-      description: "We've successfully setup your account, enjoy!",
-      status: 'success',
-      duration: 9000,
-      isClosable: true,
-    })
-  }
+  const { user } = useAuth()
 
   if (user.has_completed_onboarding) return null
   return (
@@ -99,18 +79,7 @@ const OnboardingModal = () => {
         </ModalBody>
 
         <ModalFooter>
-          <Button
-            variantColor='orange'
-            mr={3}
-            isLoading={isLoading}
-            loadingText='Fetching saves…'
-            onClick={() => {
-              setIsLoading(true)
-              syncSaves()
-            }}
-          >
-            Sync Reddit Saves
-          </Button>
+          <SyncButton initialSync />
         </ModalFooter>
       </ModalContent>
     </Modal>

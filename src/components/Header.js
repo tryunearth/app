@@ -14,6 +14,7 @@ import {
 } from '@chakra-ui/core'
 
 import { useAuth } from '../contexts/AuthContext'
+import { SyncButton } from '../components'
 
 const Header = () => {
   const { user, logout } = useAuth()
@@ -67,9 +68,10 @@ const Header = () => {
         </Box> */}
 
       <Box
-        display={{ sm: show ? 'block' : 'none', md: 'block' }}
+        display={{ sm: show ? 'block' : 'none', md: 'flex' }}
         mt={{ base: 4, md: 0 }}
       >
+        <SyncButton />
         <Menu>
           <MenuButton as='button'>
             <Avatar name={user.username} src={user.avatar_img} size='sm' />

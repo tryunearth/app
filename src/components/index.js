@@ -1,5 +1,6 @@
 export { default as NavLink } from './shared/NavLink'
 export { default as SEO } from './shared/SEO'
+export { default as SyncButton } from './shared/SyncButton'
 
 export { default as Layout } from './Layout'
 export { default as ThingsList } from './ThingsList'
