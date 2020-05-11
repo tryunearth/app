@@ -7,11 +7,13 @@ const NotFound = () => <Redirect from='blah' to='/login' noThrow />
 
 const UnauthenticatedApp = () => {
   return (
-    <Router>
-      <Login path='/login' />
-      <ReceiveFromReddit path='/auth/reddit' />
-      <NotFound default />
-    </Router>
+    <div style={{ height: '100%' }}>
+      <Router style={{ height: '100%' }}>
+        <Login path='/login' />
+        <ReceiveFromReddit path='/auth/reddit' />
+        <NotFound default />
+      </Router>
+    </div>
   )
 }
 
