@@ -4,7 +4,7 @@ import { OauthReceiver, OauthSender } from 'react-oauth-flow'
 import { Flex, Heading, Text, Button, Link } from '@chakra-ui/core'
 import qs from 'querystring'
 
-import topography from '../topography.svg'
+import topography from '../assets/topography.svg'
 
 import config from '../config'
 import { useAuth } from '../contexts/AuthContext'
