@@ -49,6 +49,7 @@ const ThingsProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchThings = async () => {
+      if (!token || !user) return
       updateIsLoading(true)
       let queryParam
       if (currentFilter) {

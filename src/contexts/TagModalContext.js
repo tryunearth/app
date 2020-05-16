@@ -17,6 +17,7 @@ import { CustomTagsInput } from '../components'
 import config from '../config'
 import { useAuth } from './AuthContext'
 import { useThings } from './ThingsContext'
+import { useFilters } from './FiltersContext'
 
 const TagModalContext = createContext({})
 
@@ -24,6 +25,7 @@ const TagModalProvider = ({ children }) => {
   const [thing, setThing] = useState({})
   const { token } = useAuth()
   const { things, updateThings } = useThings()
+  const { updateFilters } = useFilters()
   const { isOpen, onOpen, onClose } = useDisclosure()
 
   const initialRef = React.useRef()
@@ -55,6 +57,7 @@ const TagModalProvider = ({ children }) => {
         'Content-Type': 'application/json',
       },
     })
+    await updateFilters()
     onClose()
   }
 

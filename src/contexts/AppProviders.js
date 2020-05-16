@@ -1,24 +1,23 @@
 import React from 'react'
-import { LocationProvider, Location } from '@reach/router'
+import { LocationProvider } from '@reach/router'
 import { ThemeProvider, CSSReset } from '@chakra-ui/core'
 
 import customTheme from '../theme'
 import { AuthProvider } from './AuthContext'
 import { ThingsProvider } from './ThingsContext'
 import { TagModalProvider } from './TagModalContext'
+import { FiltersProvider } from './FiltersContext'
 
 const AppProviders = ({ children }) => (
   <LocationProvider>
     <AuthProvider>
       <ThemeProvider theme={customTheme}>
         <CSSReset />
-        <Location>
-          {({ location }) => (
-            <ThingsProvider location={location}>
-              <TagModalProvider>{children}</TagModalProvider>
-            </ThingsProvider>
-          )}
-        </Location>
+        <FiltersProvider>
+          <ThingsProvider>
+            <TagModalProvider>{children}</TagModalProvider>
+          </ThingsProvider>
+        </FiltersProvider>
       </ThemeProvider>
     </AuthProvider>
   </LocationProvider>
