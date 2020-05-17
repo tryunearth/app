@@ -5,7 +5,7 @@ import 'react-tagsinput/react-tagsinput.css'
 
 import './tags-input.css'
 
-const renderTagList = (props) => {
+const renderTagList = (props, handleRemoveTag) => {
   const {
     tag,
     key,
@@ -19,7 +19,7 @@ const renderTagList = (props) => {
   return (
     <Tag key={key} size='sm' {...other} border='none'>
       <TagLabel>{getTagDisplayValue(tag)}</TagLabel>
-      <TagCloseButton />
+      <TagCloseButton onClick={() => handleRemoveTag(tag)} />
     </Tag>
   )
 }
@@ -39,19 +39,26 @@ const renderInput = (props) => {
   )
 }
 
-const CustomTagsInput = React.forwardRef(({ tags, handleOnChange }, ref) => {
-  return (
-    <TagsInput
-      value={tags}
-      onChange={handleOnChange}
-      addOnBlur
-      onlyUnique
-      preventSubmit={false}
-      inputProps={{ ref }}
-      renderTag={renderTagList}
-      renderInput={renderInput}
-    />
-  )
-})
+const handleValidate = (tag) => tag.length <= 18
+
+const CustomTagsInput = React.forwardRef(
+  ({ tags, handleOnChange, handleRemoveTag, setShowError }, ref) => {
+    return (
+      <TagsInput
+        value={tags}
+        onChange={handleOnChange}
+        addOnBlur
+        onlyUnique
+        preventSubmit={false}
+        validate={handleValidate}
+        validationRegex={/^[\w-]*$/}
+        onValidationReject={() => setShowError(true)}
+        inputProps={{ ref }}
+        renderTag={(props) => renderTagList(props, handleRemoveTag)}
+        renderInput={renderInput}
+      />
+    )
+  },
+)
 
 export default CustomTagsInput

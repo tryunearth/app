@@ -54,7 +54,7 @@ const TagDeletionAlertProvider = ({ children }) => {
     })
     await updateFilters()
 
-    if (tag.name === match.tagName) {
+    if (match && tag.name === match.tagName) {
       const neighborTag = redirectIfDeleted(tag)
       await navigate(neighborTag ? `/tags/${neighborTag.name}` : `/`)
     }
