@@ -49,9 +49,10 @@ const CustomTagsInput = React.forwardRef(
         onChange={handleOnChange}
         addOnBlur
         onlyUnique
+        maxTags={10}
         preventSubmit={false}
         validate={handleValidate}
-        validationRegex={/^[\w-]*$/}
+        validationRegex={/^[\w\s-]*$/}
         onValidationReject={() => setShowError(true)}
         inputProps={{ ref }}
         renderTag={(props) => renderTagList(props, handleRemoveTag)}

@@ -68,7 +68,7 @@ const TagModalProvider = ({ children }) => {
   }
 
   const handleOnChange = (tags, changed, changedIndexes) => {
-    setTags(tags)
+    setTags([...new Set(tags.map((tag) => tag.trim()))])
   }
 
   const handleRemoveTag = (tagName) => {
