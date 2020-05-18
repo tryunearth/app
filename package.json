@@ -18,7 +18,8 @@
     "react-icons": "^3.10.0",
     "react-oauth-flow": "^1.2.0",
     "react-scripts": "3.4.1",
-    "react-tagsinput": "https://github.com/olahol/react-tagsinput#017c2ed20c5e1ac31d61679fc8eecaa434890b3c"
+    "react-tagsinput": "https://github.com/olahol/react-tagsinput#017c2ed20c5e1ac31d61679fc8eecaa434890b3c",
+    "react-virtualized": "^9.21.2"
   },
   "scripts": {
     "start": "react-scripts start",

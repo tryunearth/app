@@ -5,7 +5,7 @@ import { TagDeletionAlertProvider } from '../contexts/TagDeletionAlertContext'
 import { ThingsList, Header, Sidebar, OnboardingModal } from '../components'
 
 const Layout = React.memo(({ children }) => (
-  <Box h='100%'>
+  <Box h='100%' maxW={1440} mx='auto'>
     <OnboardingModal />
     <Header />
     <Box
