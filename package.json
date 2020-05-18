@@ -16,7 +16,8 @@
     "react-dom": "^16.13.1",
     "react-helmet": "^6.0.0",
     "react-oauth-flow": "^1.2.0",
-    "react-scripts": "3.4.1"
+    "react-scripts": "3.4.1",
+    "react-virtualized": "^9.21.2"
   },
   "scripts": {
     "start": "react-scripts start",

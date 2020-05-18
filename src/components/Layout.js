@@ -5,7 +5,7 @@ import { ThingsProvider } from '../contexts/ThingsContext'
 import { ThingsList, Header, Sidebar, OnboardingModal } from '../components'
 
 const Layout = React.memo(({ filters, children }) => (
-  <Box h='100%'>
+  <Box h='100%' maxW={1440} mx='auto'>
     <OnboardingModal />
     <Header />
     <Box
