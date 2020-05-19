@@ -1,10 +1,10 @@
 import React from 'react'
 import { Box } from '@chakra-ui/core'
 
-import { ThingsProvider } from '../contexts/ThingsContext'
+import { TagDeletionAlertProvider } from '../contexts/TagDeletionAlertContext'
 import { ThingsList, Header, Sidebar, OnboardingModal } from '../components'
 
-const Layout = React.memo(({ filters, children }) => (
+const Layout = React.memo(({ children }) => (
   <Box h='100%' maxW={1440} mx='auto'>
     <OnboardingModal />
     <Header />
@@ -17,12 +17,12 @@ const Layout = React.memo(({ filters, children }) => (
       h='calc(100% - 97px)'
       overflow='auto'
     >
-      <Sidebar filters={filters} />
+      <TagDeletionAlertProvider>
+        <Sidebar />
+      </TagDeletionAlertProvider>
       <Box as='section' flex='4 1 0' overflowY='scroll'>
-        <ThingsProvider>
-          {children}
-          <ThingsList />
-        </ThingsProvider>
+        {children}
+        <ThingsList />
       </Box>
     </Box>
   </Box>

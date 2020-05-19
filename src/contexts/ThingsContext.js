@@ -49,10 +49,11 @@ const ThingsProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchThings = async () => {
+      if (!token || !user) return
       updateIsLoading(true)
       let queryParam
       if (currentFilter) {
-        queryParam = toQueryString(currentFilter)
+        queryParam = toQueryString({ include: 'tags', ...currentFilter })
       }
       const response = await fetch(
         `${config.backend.BASE_URL}/things${queryParam}`,

@@ -1,51 +1,33 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { Router, Redirect } from '@reach/router'
 
-import config from './config'
-import { useAuth } from './contexts/AuthContext'
 import { Home, Subreddit, Tag, Comments, NSFW } from './pages'
 import { Layout } from './components'
 
 const NotFound = () => <Redirect from='/login' to='/' noThrow />
 
-function AuthenticatedApp() {
-  const { token, user } = useAuth()
-  const [filters, setFilters] = useState({})
-
-  useEffect(() => {
-    const fetchFilters = async () => {
-      const response = await fetch(`${config.backend.BASE_URL}/filters`, {
-        headers: { Authorization: `bearer ${token}` },
-      })
-      const data = await response.json()
-      setFilters(data.payload.filters)
-    }
-    fetchFilters()
-  }, [token, user])
-
-  return (
-    <Layout filters={filters}>
-      <Router>
-        <NotFound default />
-        <Home path='/' />
-        {/**
-         * TODO - make preference to password-protect this route, similar to
-         * Snapchat's "My Eyes Only" (protect_nsfw_content: Boolean)
-         */}
-        <NSFW path='/nsfw' />
-        <Comments path='/comments' />
-        {/**
-         * @reach/router does not support regular expressions matching in path,
-         * thus we must declare a route for each handler.
-         *
-         * References: https://github.com/ReactTraining/react-router/issues/391
-         */}
-        <Subreddit path='/subreddits/r/:sub' />
-        <Subreddit path='/subreddits/u/:sub' />
-        <Tag path='/tags/:tag' />
-      </Router>
-    </Layout>
-  )
-}
+const AuthenticatedApp = () => (
+  <Layout>
+    <Router>
+      <NotFound default />
+      <Home path='/' />
+      {/**
+       * TODO - make preference to password-protect this route, similar to
+       * Snapchat's "My Eyes Only" (protect_nsfw_content: Boolean)
+       */}
+      <NSFW path='/nsfw' />
+      <Comments path='/comments' />
+      {/**
+       * @reach/router does not support regular expressions matching in path,
+       * thus we must declare a route for each handler.
+       *
+       * References: https://github.com/ReactTraining/react-router/issues/391
+       */}
+      <Subreddit path='/subreddits/r/:sub' />
+      <Subreddit path='/subreddits/u/:sub' />
+      <Tag path='/tags/:tag' />
+    </Router>
+  </Layout>
+)
 
 export default AuthenticatedApp

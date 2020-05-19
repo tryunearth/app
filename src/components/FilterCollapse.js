@@ -55,7 +55,11 @@ const FilterCollapse = ({ label, prefix, list }) => {
         <List>
           {list.map((filterItem) => (
             <ListItem key={filterItem.id ? filterItem.id : filterItem.name}>
-              <NavLink to={`/${prefix}/${filterItem.name}`}>
+              <NavLink
+                to={`/${prefix}/${filterItem.name}`}
+                canBeDeleted={prefix === 'tags' ? true : false}
+                item={filterItem}
+              >
                 {filterItem.name}
               </NavLink>
             </ListItem>
