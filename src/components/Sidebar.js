@@ -16,20 +16,20 @@ const Sidebar = () => {
         cursor='pointer'
         mb={4}
       >
-        <NavLink to='/' icon='feather-home'>
+        <NavLink to='/' icon='bs-home'>
           Home
         </NavLink>
       </Stack>
-      <Text mb={3} pl={2} color='gray.400' fontWeight='semibold'>
+      <Text mb={3} pl={5} color='gray.400' fontWeight='semibold'>
         Filters
       </Text>
       <Stack isInline justify='flex-start' align='center' cursor='pointer'>
-        <NavLink to='/comments' icon='feather-comment'>
+        <NavLink to='/comments' icon='bs-chat'>
           Comments
         </NavLink>
       </Stack>
       <Stack isInline justify='flex-start' align='center' cursor='pointer'>
-        <NavLink to='/nsfw' icon='feather-warning'>
+        <NavLink to='/nsfw' icon='bs-warning'>
           NSFW
         </NavLink>
       </Stack>

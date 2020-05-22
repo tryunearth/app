@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Link, useLocation } from '@reach/router'
-import { PseudoBox, Flex, Icon, IconButton } from '@chakra-ui/core'
+import { PseudoBox, Flex, IconButton } from '@chakra-ui/core'
 
 import { useTagDeletionAlert } from '../../contexts/TagDeletionAlertContext'
+import { NavLinkIcon } from '../../components'
 
 /**
  * A clone of `react-router`'s <NavLink /> component. Used when wanting to
@@ -25,7 +26,7 @@ const NavLink = ({ icon, canBeDeleted, item, children, ...rest }) => {
       alignItems='stretch'
       width='full'
       height={10}
-      pl={icon ? 2 : 4}
+      pl={5}
       color={isActive ? 'orange.700' : 'gray.700'}
       bg={isActive ? 'orange.100' : 'transparent'}
       borderRadius='md'
@@ -33,7 +34,10 @@ const NavLink = ({ icon, canBeDeleted, item, children, ...rest }) => {
       role='group'
       _hover={{ color: 'orange.700' }}
     >
-      <Link {...rest} style={{ display: 'flex', width: '100%' }}>
+      <Link
+        {...rest}
+        style={{ display: 'flex', width: '100%', outline: 'none' }}
+      >
         <Flex
           w='full'
           pr={canBeDeleted ? 4 : 0}
@@ -41,7 +45,7 @@ const NavLink = ({ icon, canBeDeleted, item, children, ...rest }) => {
           justifyContent={canBeDeleted ? 'space-between' : 'flex-start'}
           alignItems='center'
         >
-          {icon && <Icon size={4} name={icon} mr={2} />}
+          {icon && <NavLinkIcon name={icon} />}
           {children}
           {canBeDeleted && (
             <PseudoBox

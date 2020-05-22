@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import {
   Box,
@@ -6,15 +6,28 @@ import {
   Collapse,
   List,
   ListItem,
-  Icon,
   Stack,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Icon,
   useDisclosure,
 } from '@chakra-ui/core'
 
-import { NavLink } from '../components'
+import { NavLink, NavLinkIcon } from '../components'
 
 const FilterCollapse = ({ label, prefix, list }) => {
   const { isOpen, onToggle } = useDisclosure()
+  const [filterList, setFilterList] = useState([])
+  const [value, setValue] = useState('')
+  const handleChange = (event) => {
+    setValue(event.target.value)
+    setFilterList(
+      [...list].filter((item) => item.name.includes(event.target.value)),
+    )
+  }
+
+  useEffect(() => setFilterList(list), [list])
 
   if (!list) {
     return (
@@ -27,9 +40,7 @@ const FilterCollapse = ({ label, prefix, list }) => {
           onClick={onToggle}
           cursor='pointer'
         >
-          <Icon
-            name={isOpen ? 'feather-chevron-down' : 'feather-chevron-right'}
-          />
+          <NavLinkIcon name={isOpen ? 'bs-caret-down' : 'bs-caret-right'} />
           <Text>{label}</Text>
         </Stack>
       </Box>
@@ -37,7 +48,7 @@ const FilterCollapse = ({ label, prefix, list }) => {
   }
 
   return (
-    <Box pl={2} w='full'>
+    <Box pl={4} w='full'>
       <Stack
         minH='40px'
         isInline
@@ -46,14 +57,28 @@ const FilterCollapse = ({ label, prefix, list }) => {
         onClick={onToggle}
         cursor='pointer'
       >
-        <Icon
-          name={isOpen ? 'feather-chevron-down' : 'feather-chevron-right'}
+        <NavLinkIcon
+          name={isOpen ? 'bs-caret-down' : 'bs-caret-right'}
+          marginRight={3}
         />
         <Text>{label}</Text>
       </Stack>
       <Collapse isOpen={isOpen}>
+        <InputGroup mt={2} mb={4}>
+          <InputLeftElement
+            children={<Icon name='search' color='gray.300' />}
+          />
+          <Input
+            type='text'
+            placeholder=''
+            value={value}
+            onChange={handleChange}
+            focusBorderColor='none'
+          />
+        </InputGroup>
+
         <List>
-          {list.map((filterItem) => (
+          {filterList.map((filterItem) => (
             <ListItem key={filterItem.id ? filterItem.id : filterItem.name}>
               <NavLink
                 to={`/${prefix}/${filterItem.name}`}

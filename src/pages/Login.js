@@ -1,7 +1,9 @@
 import React from 'react'
 import { Redirect } from '@reach/router'
 import { OauthReceiver, OauthSender } from 'react-oauth-flow'
-import { Flex, Heading, Text, Button, Link } from '@chakra-ui/core'
+import { Box, Flex, Heading, Text, Button, Link } from '@chakra-ui/core'
+import { GrReddit } from 'react-icons/gr'
+
 import qs from 'querystring'
 
 import topography from '../assets/topography.svg'
@@ -12,6 +14,8 @@ import { SEO } from '../components'
 
 const CLIENT_URL = config.reddit.CLIENT_URL
 const CLIENT_ID = config.reddit.CLIENT_ID
+
+const RedditIcon = () => <Box as={GrReddit} mr={2} />
 
 const RedditAuthButton = ({ url, ...rest }) => (
   <Button
@@ -25,7 +29,7 @@ const RedditAuthButton = ({ url, ...rest }) => (
     bg='#ff4500'
     _hover={{ bg: '#ff4500', textDecor: 'none' }}
     _active={{ bg: '#ff4500', textDecor: 'none' }}
-    leftIcon='reddit-square'
+    leftIcon={RedditIcon}
     {...rest}
   >
     Login Using Reddit
@@ -82,7 +86,7 @@ const Login = () => {
           redirectUri={`${CLIENT_URL}/auth/reddit`}
           response_type='token'
           state={{ from: '/' }}
-          args={{ scope: 'history identity', duration: 'permanent' }}
+          args={{ scope: 'history identity save', duration: 'permanent' }}
           render={({ url }) => <RedditAuthButton url={url} mb={16} />}
         />
 

@@ -1,8 +1,9 @@
 import React from 'react'
 import { Box } from '@chakra-ui/core'
 
-import { TagDeletionAlertProvider } from '../contexts/TagDeletionAlertContext'
 import { ThingsList, Header, Sidebar, OnboardingModal } from '../components'
+import { TagDeletionAlertProvider } from '../contexts/TagDeletionAlertContext'
+import { ThingDeletionAlertProvider } from '../contexts/ThingDeletionAlertContext'
 
 const Layout = React.memo(({ children }) => (
   <Box h='100%' maxW={1440} mx='auto'>
@@ -21,8 +22,10 @@ const Layout = React.memo(({ children }) => (
         <Sidebar />
       </TagDeletionAlertProvider>
       <Box as='section' flex='4 1 0' overflowY='scroll'>
-        {children}
-        <ThingsList />
+        <ThingDeletionAlertProvider>
+          {children}
+          <ThingsList />
+        </ThingDeletionAlertProvider>
       </Box>
     </Box>
   </Box>
