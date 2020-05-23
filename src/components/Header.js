@@ -3,6 +3,7 @@ import {
   Box,
   Flex,
   Heading,
+  Image,
   Badge,
   Avatar,
   Menu,
@@ -12,6 +13,8 @@ import {
   MenuGroup,
   MenuDivider,
 } from '@chakra-ui/core'
+
+import unearthLogo from '../assets/unearth-horizontal_lockup.svg'
 
 import { useAuth } from '../contexts/AuthContext'
 import { SyncButton } from '../components'
@@ -35,12 +38,13 @@ const Header = () => {
       borderBottomColor='gray.200'
     >
       <Flex align='center' mr={5}>
-        <Heading as='h1' size='lg'>
+        {/* <Heading as='h1' size='lg'>
           Unearth
           <Badge ml={1} variant='subtle' variantColor='orange'>
             beta
           </Badge>
-        </Heading>
+        </Heading> */}
+        <Image src={unearthLogo} alt='Unearth logo' maxH='47px' />
       </Flex>
 
       {/* <Box display={{ sm: 'block', md: 'none' }} onClick={handleToggle}> */}

@@ -60,7 +60,7 @@ const Thing = React.memo(({ thing }) => {
       <Box>
         {thing.name === 'comment' && (
           <Box
-            color='#ff4500'
+            color='blue.400'
             fontWeight='semibold'
             letterSpacing='wide'
             fontSize='xs'

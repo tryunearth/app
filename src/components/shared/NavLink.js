@@ -27,12 +27,12 @@ const NavLink = ({ icon, canBeDeleted, item, children, ...rest }) => {
       width='full'
       height={10}
       pl={5}
-      color={isActive ? 'orange.700' : 'gray.700'}
-      bg={isActive ? 'orange.100' : 'transparent'}
+      color={isActive ? 'blue.700' : 'gray.700'}
+      bg={isActive ? 'blue.100' : 'transparent'}
       borderRadius='md'
       cursor='pointer'
       role='group'
-      _hover={{ color: 'orange.700' }}
+      _hover={{ color: 'blue.700' }}
     >
       <Link
         {...rest}

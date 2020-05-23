@@ -9,11 +9,13 @@ import { Helmet } from 'react-helmet'
  */
 const SEO = ({ title }) => (
   <Helmet>
-    <title>{title === 'Unearth' ? title : `Unearth - ${title}`}</title>
+    <title>
+      {title.toLowerCase() === 'unearth' ? title : `unearth - ${title}`}
+    </title>
   </Helmet>
 )
 
 SEO.propTypes = { title: PropTypes.string }
-SEO.defaultProps = { title: 'Unearth' }
+SEO.defaultProps = { title: 'unearth' }
 
 export default SEO

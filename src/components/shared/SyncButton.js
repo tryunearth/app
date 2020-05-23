@@ -69,7 +69,7 @@ const SyncButton = ({ initialSync }) => {
   return (
     <Button
       size={initialSync ? 'md' : 'sm'}
-      variantColor='orange'
+      variantColor='blue'
       mr={3}
       isLoading={isLoading}
       loadingText={initialSync ? 'Fetching saves…' : 'Syncing…'}
