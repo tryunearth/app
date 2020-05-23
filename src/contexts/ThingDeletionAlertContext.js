@@ -18,6 +18,7 @@ const ThingDeletionAlertContext = createContext({})
 
 const ThingDeletionAlertProvider = ({ children }) => {
   const [thing, setThing] = useState({})
+  const [isLoading, setIsLoading] = useState(false)
   const cancelRef = useRef()
 
   const { token } = useAuth()
@@ -31,14 +32,21 @@ const ThingDeletionAlertProvider = ({ children }) => {
   const handleClose = () => onClose()
 
   const handleDelete = async () => {
-    await fetch(`${config.backend.BASE_URL}/things/${thing.id}`, {
-      method: 'DELETE',
-      headers: { Authorization: `bearer ${token}` },
-    })
-    const newThings = things.filter((t) => t.id !== thing.id)
-    updateThings(newThings)
-    setThing({})
-    onClose()
+    setIsLoading(true)
+    try {
+      await fetch(`${config.backend.BASE_URL}/things/${thing.id}`, {
+        method: 'DELETE',
+        headers: { Authorization: `bearer ${token}` },
+      })
+      const newThings = things.filter((t) => t.id !== thing.id)
+      updateThings(newThings)
+      setThing({})
+      setIsLoading(false)
+      onClose()
+    } catch (error) {
+      console.error(error)
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -63,7 +71,13 @@ const ThingDeletionAlertProvider = ({ children }) => {
             <Button ref={cancelRef} onClick={handleClose}>
               Cancel
             </Button>
-            <Button variantColor='red' onClick={handleDelete} ml={3}>
+            <Button
+              variantColor='red'
+              onClick={handleDelete}
+              ml={3}
+              loadingText='Deleting…'
+              isLoading={isLoading}
+            >
               Delete Thing
             </Button>
           </AlertDialogFooter>

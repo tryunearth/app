@@ -73,9 +73,7 @@ const SyncButton = ({ initialSync }) => {
       mr={3}
       isLoading={isLoading}
       loadingText={initialSync ? 'Fetching saves…' : 'Syncing…'}
-      onClick={() => {
-        syncSaves()
-      }}
+      onClick={syncSaves}
     >
       Sync Reddit Saves
     </Button>

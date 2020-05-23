@@ -2,9 +2,7 @@ import React from 'react'
 import {
   Box,
   Flex,
-  Heading,
   Image,
-  Badge,
   Avatar,
   Menu,
   MenuButton,
@@ -38,12 +36,6 @@ const Header = () => {
       borderBottomColor='gray.200'
     >
       <Flex align='center' mr={5}>
-        {/* <Heading as='h1' size='lg'>
-          Unearth
-          <Badge ml={1} variant='subtle' variantColor='orange'>
-            beta
-          </Badge>
-        </Heading> */}
         <Image src={unearthLogo} alt='Unearth logo' maxH='47px' />
       </Flex>
 
