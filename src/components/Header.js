@@ -1,4 +1,5 @@
 import React from 'react'
+import { useNavigate } from '@reach/router'
 import {
   Box,
   Flex,
@@ -18,6 +19,7 @@ import { useAuth } from '../contexts/AuthContext'
 import { SyncButton } from '../components'
 
 const Header = () => {
+  const navigate = useNavigate()
   const { user, logout } = useAuth()
   const show = false
 
@@ -74,8 +76,10 @@ const Header = () => {
           </MenuButton>
           <MenuList placement='bottom-end'>
             <MenuGroup title={`Hello, ${user.username}`}>
-              <MenuItem>Account</MenuItem>
-              <MenuItem>Preferences</MenuItem>
+              <MenuItem onClick={() => navigate('/account')}>Account</MenuItem>
+              <MenuItem isDisabled title='Coming soon'>
+                Preferences
+              </MenuItem>
             </MenuGroup>
             <MenuDivider />
             <MenuItem onClick={logout}>Logout</MenuItem>
