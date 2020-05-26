@@ -7,7 +7,6 @@ import {
   RadioGroup,
   FormControl,
   FormLabel,
-  FormErrorMessage,
   FormHelperText,
   Stack,
 } from '@chakra-ui/core'
@@ -21,17 +20,17 @@ const Account = () => {
   const [userEmail, setUserEmail] = useState(user.email)
   const [preferredFrequency, setPreferredFrequency] = useState(user.frequency)
   const [settingsHaveChanged, setSettingsHaveChanged] = useState(false)
-  const [ogSettings, setOGSettings] = useState({
+  const ogSettings = {
     email: user.email,
     frequency: user.frequency,
-  })
+  }
 
   useEffect(() => {
     const updatedSettings = { email: userEmail, frequency: preferredFrequency }
     setSettingsHaveChanged(
       JSON.stringify(updatedSettings) === JSON.stringify(ogSettings),
     )
-  }, [userEmail, preferredFrequency])
+  }, [ogSettings, userEmail, preferredFrequency])
 
   const handleSubmit = (e) => {
     e.preventDefault()
