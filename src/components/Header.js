@@ -74,8 +74,12 @@ const Header = () => {
           </MenuButton>
           <MenuList placement='bottom-end'>
             <MenuGroup title={`Hello, ${user.username}`}>
-              <MenuItem>Account</MenuItem>
-              <MenuItem>Preferences</MenuItem>
+              <MenuItem isDisabled title='Coming soon…'>
+                Account
+              </MenuItem>
+              <MenuItem isDisabled title='Coming soon…'>
+                Preferences
+              </MenuItem>
             </MenuGroup>
             <MenuDivider />
             <MenuItem onClick={logout}>Logout</MenuItem>

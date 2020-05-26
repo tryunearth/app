@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Box, Icon } from '@chakra-ui/core'
 import {
-  BsFillExclamationTriangleFill,
+  BsFillExclamationOctagonFill,
   BsFillHouseDoorFill,
   BsFillCaretDownFill,
   BsFillCaretRightFill,
@@ -15,7 +15,7 @@ const NavLinkIcon = ({ name, ...rest }) => {
     'bs-caret-down': BsFillCaretDownFill,
     'bs-caret-right': BsFillCaretRightFill,
     'bs-chat': BsFillChatSquareFill,
-    'bs-warning': BsFillExclamationTriangleFill,
+    'bs-warning': BsFillExclamationOctagonFill,
   }
 
   const icon = iconMapping[name]
