@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import {
   Heading,
+  Text,
+  Box,
   Button,
   Input,
   Radio,
@@ -9,6 +11,12 @@ import {
   FormLabel,
   FormHelperText,
   Stack,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
 } from '@chakra-ui/core'
 
 import { SEO } from '../components'
@@ -16,6 +24,11 @@ import { useAuth } from '../contexts/AuthContext'
 
 const Account = () => {
   const { user } = useAuth()
+
+  // Delete Account Confirmation
+  const [isOpen, setIsOpen] = useState(false)
+  const onClose = () => setIsOpen(false)
+  const cancelRef = useRef()
 
   const [userEmail, setUserEmail] = useState(user.email)
   const [preferredFrequency, setPreferredFrequency] = useState(user.frequency)
@@ -34,53 +47,105 @@ const Account = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
+    // TODO - `PATCH /v1/auth/me`
+  }
+
+  const handleDelete = () => {
+    // TODO - `DELETE /v1/auth/me`
   }
 
   return (
     <>
       <SEO title='Account' />
-      <Heading as='h3' size='xl' mb={4} fontWeight='bold'>
-        Account
-      </Heading>
-      <Stack as='form' px={1} spacing={8} onSubmit={handleSubmit}>
-        <FormControl>
-          <FormLabel htmlFor='email'>Email Address</FormLabel>
-          <Input
-            type='email'
-            id='email'
-            name='email'
-            aria-describedby='email-helper-text'
-            value={userEmail}
-            onChange={(e) => setUserEmail(e.target.value)}
-          />
-          <FormHelperText id='email-helper-text'>
-            We'll never share your email.
-          </FormHelperText>
-        </FormControl>
-        <FormControl>
-          <FormLabel htmlFor='frequency'>Email Frequency</FormLabel>
-          <RadioGroup
-            id='frequency'
-            value={preferredFrequency}
-            onChange={(e, value) => setPreferredFrequency(value)}
+      <Stack spacing={8}>
+        <Heading as='h3' size='xl' mb={4} fontWeight='bold'>
+          Account
+        </Heading>
+        <Stack as='form' px={1} spacing={4} onSubmit={handleSubmit}>
+          <FormControl>
+            <FormLabel htmlFor='email'>Email Address</FormLabel>
+            <Input
+              type='email'
+              id='email'
+              name='email'
+              aria-describedby='email-helper-text'
+              placeholder='you.email@example.com'
+              value={userEmail}
+              onChange={(e) => setUserEmail(e.target.value)}
+            />
+            <FormHelperText id='email-helper-text'>
+              We'll never share your email.
+            </FormHelperText>
+          </FormControl>
+          <FormControl>
+            <FormLabel htmlFor='frequency'>Email Frequency</FormLabel>
+            <RadioGroup
+              id='frequency'
+              value={preferredFrequency}
+              onChange={(e, value) => setPreferredFrequency(value)}
+            >
+              <Radio value='daily'>Daily</Radio>
+              <Radio value='weekly'>Weekly</Radio>
+              <Radio value='monthly'>Monthly</Radio>
+              <Radio value='unsubscribe'>Unsubscribe</Radio>
+            </RadioGroup>
+            <FormHelperText id='frequency-helper-text'>
+              Choose how often you'd like to receive your personalized
+              newsletter.
+            </FormHelperText>
+          </FormControl>
+          <Button
+            w='max-content'
+            type='submit'
+            variantColor='blue'
+            isDisabled={settingsHaveChanged}
           >
-            <Radio value='daily'>Daily</Radio>
-            <Radio value='weekly'>Weekly</Radio>
-            <Radio value='monthly'>Monthly</Radio>
-            <Radio value='unsubscribe'>Unsubscribe</Radio>
-          </RadioGroup>
-          <FormHelperText id='frequency-helper-text'>
-            Choose how often you'd like to receive your personalized newsletter.
-          </FormHelperText>
-        </FormControl>
-        <Button
-          w='max-content'
-          type='submit'
-          variantColor='blue'
-          isDisabled={settingsHaveChanged}
-        >
-          Save Changes
-        </Button>
+            Save Changes
+          </Button>
+        </Stack>
+        <Stack spacing={4}>
+          <Box>
+            <Heading size='lg'>Danger Zone</Heading>
+            <Text>Irreversible and destructive actions. Tread lightly.</Text>
+          </Box>
+
+          <Box>
+            <Button
+              w='max-content'
+              variantColor='red'
+              onClick={() => setIsOpen(true)}
+            >
+              Delete Account
+            </Button>
+            <AlertDialog
+              isOpen={isOpen}
+              isCentered
+              leastDestructiveRef={cancelRef}
+              onClose={onClose}
+            >
+              <AlertDialogOverlay />
+              <AlertDialogContent borderRadius='md'>
+                <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+                  Delete Account
+                </AlertDialogHeader>
+
+                <AlertDialogBody>
+                  Are you sure? All your Unearth data (i.e. tags) will also be
+                  deleted which cannot be recovered afterwards.
+                </AlertDialogBody>
+
+                <AlertDialogFooter>
+                  <Button ref={cancelRef} onClick={onClose}>
+                    Cancel
+                  </Button>
+                  <Button variantColor='red' onClick={onClose} ml={3}>
+                    Delete
+                  </Button>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+          </Box>
+        </Stack>
       </Stack>
     </>
   )
