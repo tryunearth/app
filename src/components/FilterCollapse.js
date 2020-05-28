@@ -23,7 +23,9 @@ const FilterCollapse = ({ label, prefix, list }) => {
   const handleChange = (event) => {
     setValue(event.target.value)
     setFilterList(
-      [...list].filter((item) => item.name.includes(event.target.value)),
+      [...list].filter((item) =>
+        item.name.toLowerCase().includes(event.target.value.toLowerCase()),
+      ),
     )
   }
 
