@@ -17,13 +17,16 @@ import {
   AlertDialogHeader,
   AlertDialogContent,
   AlertDialogOverlay,
+  useToast,
 } from '@chakra-ui/core'
 
+import config from '../config'
 import { SEO } from '../components'
 import { useAuth } from '../contexts/AuthContext'
 
 const Account = () => {
-  const { user } = useAuth()
+  const toast = useToast()
+  const { token, user, logout, updateUser } = useAuth()
 
   // Delete Account Confirmation
   const [isOpen, setIsOpen] = useState(false)
@@ -45,13 +48,62 @@ const Account = () => {
     )
   }, [ogSettings, userEmail, preferredFrequency])
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // TODO - `PATCH /v1/auth/me`
+    try {
+      const response = await fetch(`${config.backend.BASE_URL}/auth/me`, {
+        method: 'PATCH',
+        body: JSON.stringify({
+          email: userEmail,
+          frequency: preferredFrequency,
+        }),
+        headers: {
+          Authorization: `bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      })
+      const data = await response.json()
+      const updatedUser = data.payload.user
+      updateUser(updatedUser)
+      toast({
+        title: 'Success!',
+        description: 'Your settings were successfully saved.',
+        status: 'success',
+        isClosable: true,
+      })
+    } catch (error) {
+      toast({
+        title: 'Uh oh!',
+        description:
+          'An error occurred while attempting to save your settings.',
+        status: 'error',
+        isClosable: true,
+      })
+    }
   }
 
-  const handleDelete = () => {
-    // TODO - `DELETE /v1/auth/me`
+  const handleDelete = async () => {
+    try {
+      await fetch(`${config.backend.BASE_URL}/auth/me`, {
+        method: 'DELETE',
+        headers: { Authorization: `bearer ${token}` },
+      })
+      logout()
+      toast({
+        title: 'Goodbye',
+        description: 'Account successfully deleted. Thanks for trying Unearth!',
+        status: 'info',
+        isClosable: false,
+        duration: 8000,
+      })
+    } catch (error) {
+      toast({
+        title: 'Uh oh!',
+        description: 'An error occurred while trying to delete your account.',
+        status: 'error',
+        isClosable: true,
+      })
+    }
   }
 
   return (
@@ -69,7 +121,7 @@ const Account = () => {
               id='email'
               name='email'
               aria-describedby='email-helper-text'
-              placeholder='you.email@example.com'
+              placeholder='your.email@example.com'
               value={userEmail}
               onChange={(e) => setUserEmail(e.target.value)}
             />
@@ -138,7 +190,7 @@ const Account = () => {
                   <Button ref={cancelRef} onClick={onClose}>
                     Cancel
                   </Button>
-                  <Button variantColor='red' onClick={onClose} ml={3}>
+                  <Button variantColor='red' onClick={handleDelete} ml={3}>
                     Delete
                   </Button>
                 </AlertDialogFooter>
