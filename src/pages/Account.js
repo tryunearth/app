@@ -114,6 +114,10 @@ const Account = () => {
           Account
         </Heading>
         <Stack as='form' px={1} spacing={4} onSubmit={handleSubmit}>
+          <Box>
+            <Heading size='lg'>Profile</Heading>
+            <Text>General account information.</Text>
+          </Box>
           <FormControl>
             <FormLabel htmlFor='email'>Email Address</FormLabel>
             <Input
@@ -143,7 +147,7 @@ const Account = () => {
             </RadioGroup>
             <FormHelperText id='frequency-helper-text'>
               Choose how often you'd like to receive your personalized
-              newsletter.
+              newsletter (feature coming soon).
             </FormHelperText>
           </FormControl>
           <Button
