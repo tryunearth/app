@@ -6,8 +6,11 @@ const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
   const [token, setToken] = useState(localStorage.getItem('token'))
 
-  const updateUser = (newUser) => setUser(newUser)
   const updateToken = (jwt) => setToken(jwt)
+  const updateUser = (newUser) => {
+    localStorage.setItem('user', JSON.stringify(newUser))
+    setUser(newUser)
+  }
 
   const login = (authenticatedUser, jwt) => {
     localStorage.setItem('user', JSON.stringify(authenticatedUser))
