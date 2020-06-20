@@ -1,7 +1,14 @@
 import React, { createContext, useState, useContext } from 'react'
 import {
   Stack,
+  Box,
+  Text,
   Button,
+  CloseButton,
+  Alert,
+  AlertIcon,
+  AlertTitle,
+  AlertDescription,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -11,15 +18,9 @@ import {
   ModalCloseButton,
   useDisclosure,
 } from '@chakra-ui/core'
-import {
-  CloseButton,
-  Alert,
-  AlertIcon,
-  AlertTitle,
-  AlertDescription,
-} from '@chakra-ui/core'
+import { RiLightbulbLine } from 'react-icons/ri'
 
-import { CustomTagsInput } from '../components'
+import { CustomTagsInput, KbdKey } from '../components'
 
 import config from '../config'
 import { useAuth } from './AuthContext'
@@ -52,6 +53,7 @@ const TagValidationErrorAlert = ({ setShowError }) => {
 const TagModalProvider = ({ children }) => {
   const [thing, setThing] = useState({})
   const [tags, setTags] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
   const [showError, setShowError] = useState(false)
   const { token } = useAuth()
   const { things, updateThings } = useThings()
@@ -76,6 +78,7 @@ const TagModalProvider = ({ children }) => {
   }
 
   const handleSubmit = async () => {
+    setIsLoading(true)
     const updatedThing = { ...thing, tags: [...tags] }
     await setThing(updatedThing)
     await updateThings(
@@ -95,6 +98,7 @@ const TagModalProvider = ({ children }) => {
       },
     })
     await updateFilters()
+    setIsLoading(false)
     onClose()
   }
 
@@ -123,6 +127,7 @@ const TagModalProvider = ({ children }) => {
               <CustomTagsInput
                 ref={initialRef}
                 tags={tags}
+                disabled={isLoading}
                 handleOnChange={handleOnChange}
                 handleRemoveTag={handleRemoveTag}
                 setShowError={setShowError}
@@ -131,10 +136,30 @@ const TagModalProvider = ({ children }) => {
                 ml={2}
                 size='md'
                 minW='max-content'
+                isLoading={isLoading}
                 onClick={handleSubmit}
               >
                 Save
               </Button>
+            </Stack>
+            <Stack mt={4} isInline fontSize='sm'>
+              <Box d='flex' alignItems='center'>
+                <Box
+                  d='flex'
+                  justifyContent='space-between'
+                  alignItems='center'
+                >
+                  <Box as={RiLightbulbLine} />
+                  <Text fontWeight='bold'>ProTip!</Text>
+                </Box>
+              </Box>
+              <Box>
+                Use the
+                <KbdKey text='Enter' />
+                or
+                <KbdKey text='Tab' />
+                keys to add multiple tags, then click "Save" to submit.
+              </Box>
             </Stack>
           </ModalBody>
 
@@ -142,9 +167,6 @@ const TagModalProvider = ({ children }) => {
             {showError && (
               <TagValidationErrorAlert setShowError={setShowError} />
             )}
-            {/* <Button variantColor='blue' mr={3} onClick={onClose}>
-              Close
-            </Button> */}
           </ModalFooter>
         </ModalContent>
       </Modal>
