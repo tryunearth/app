@@ -42,13 +42,14 @@ const renderInput = (props) => {
 const handleValidate = (tag) => tag.length <= 18
 
 const CustomTagsInput = React.forwardRef(
-  ({ tags, handleOnChange, handleRemoveTag, setShowError }, ref) => {
+  ({ tags, disabled, handleOnChange, handleRemoveTag, setShowError }, ref) => {
     return (
       <TagsInput
         value={tags}
         onChange={handleOnChange}
         addOnBlur
         onlyUnique
+        disabled={disabled}
         maxTags={10}
         preventSubmit={false}
         validate={handleValidate}
