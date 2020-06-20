@@ -1,7 +1,7 @@
 import React from 'react'
 import { Router, Redirect, useLocation } from '@reach/router'
 
-import { Account, Home, Subreddit, Tag, Comments, NSFW } from './pages'
+import { Account, Home, Subreddit, Tag, Comments, Posts, NSFW } from './pages'
 import { Layout } from './components'
 
 const NotFound = () => <Redirect from='/login' to='/' noThrow />
@@ -21,6 +21,7 @@ const AuthenticatedApp = () => {
          * Snapchat's "My Eyes Only" (protect_nsfw_content: Boolean)
          */}
         <NSFW path='/nsfw' />
+        <Posts path='/posts' />
         <Comments path='/comments' />
         {/**
          * @reach/router does not support regular expressions matching in path,

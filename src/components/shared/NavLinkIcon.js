@@ -7,6 +7,7 @@ import {
   BsFillCaretDownFill,
   BsFillCaretRightFill,
   BsFillChatSquareFill,
+  BsFillFolderFill,
 } from 'react-icons/bs'
 
 const NavLinkIcon = ({ name, ...rest }) => {
@@ -16,6 +17,7 @@ const NavLinkIcon = ({ name, ...rest }) => {
     'bs-caret-right': BsFillCaretRightFill,
     'bs-chat': BsFillChatSquareFill,
     'bs-warning': BsFillExclamationOctagonFill,
+    'bs-post': BsFillFolderFill,
   }
 
   const icon = iconMapping[name]
