@@ -24,6 +24,11 @@ const Sidebar = () => {
         Filters
       </Text>
       <Stack isInline justify='flex-start' align='center' cursor='pointer'>
+        <NavLink to='/posts' icon='bs-post'>
+          Posts
+        </NavLink>
+      </Stack>
+      <Stack isInline justify='flex-start' align='center' cursor='pointer'>
         <NavLink to='/comments' icon='bs-chat'>
           Comments
         </NavLink>
