@@ -1,13 +1,21 @@
 import React, { useState } from 'react'
-import { Button, useToast } from '@chakra-ui/core'
+import { Button, Tooltip, useToast } from '@chakra-ui/core'
+import { fromUnixTime, formatDistance } from 'date-fns'
 import PropTypes from 'prop-types'
 
 import config from '../../config'
 import { useAuth } from '../../contexts/AuthContext'
 
+const calculateLastSync = (lastSync) => {
+  return formatDistance(fromUnixTime(lastSync), new Date(), { addSuffix: true })
+}
+
 const SyncButton = ({ initialSync }) => {
+  const { token, user, updateUser } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
-  const { token, updateUser } = useAuth()
+  const [lastSync, setLastSync] = useState(
+    calculateLastSync(user.last_sync_time),
+  )
   const toast = useToast()
 
   const syncSaves = async () => {
@@ -67,16 +75,27 @@ const SyncButton = ({ initialSync }) => {
   }
 
   return (
-    <Button
-      size={initialSync ? 'md' : 'sm'}
-      variantColor='blue'
-      mr={3}
-      isLoading={isLoading}
-      loadingText={initialSync ? 'Fetching saves…' : 'Syncing…'}
-      onClick={syncSaves}
+    <Tooltip
+      display={initialSync ? 'none' : 'block'}
+      hasArrow
+      placement='bottom'
+      label={`Last Sync: ${lastSync}`}
+      aria-label={`Last Sync: ${lastSync}`}
+      onOpen={() => {
+        setLastSync(calculateLastSync(user.last_sync_time))
+      }}
     >
-      Sync Reddit Saves
-    </Button>
+      <Button
+        size={initialSync ? 'md' : 'sm'}
+        variantColor='blue'
+        mr={3}
+        isLoading={isLoading}
+        loadingText={initialSync ? 'Fetching saves…' : 'Syncing…'}
+        onClick={syncSaves}
+      >
+        Sync Reddit Saves
+      </Button>
+    </Tooltip>
   )
 }
 
