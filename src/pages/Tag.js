@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
-import { Heading } from '@chakra-ui/core'
 
 import { useThings } from '../contexts/ThingsContext'
-import { SEO } from '../components'
+import { PageHeader } from '../components'
 
 const Tag = ({ tag }) => {
   const { updateCurrentFilter } = useThings()
@@ -12,14 +11,7 @@ const Tag = ({ tag }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [tag])
 
-  return (
-    <>
-      <SEO title={`Tag: ${tag}`} />
-      <Heading as='h3' size='xl' mb={4} fontWeight='bold'>
-        {tag}
-      </Heading>
-    </>
-  )
+  return <PageHeader seoTitle={`Tag: ${tag}`} pageHeading={tag} />
 }
 
 export default Tag

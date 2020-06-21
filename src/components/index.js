@@ -3,6 +3,8 @@ export { default as NavLinkIcon } from './shared/NavLinkIcon'
 export { default as SEO } from './shared/SEO'
 export { default as SyncButton } from './shared/SyncButton'
 export { default as KbdKey } from './shared/KbdKey'
+export { default as PageHeader } from './shared/PageHeader'
+export { default as ThingsListSortDropdown } from './shared/ThingsListSortDropdown'
 
 export { default as Layout } from './Layout'
 export { default as Thing } from './Thing'

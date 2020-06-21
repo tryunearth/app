@@ -21,6 +21,15 @@ const ThingsProvider = ({ children }) => {
   const location = useLocation()
   const { token, user } = useAuth()
 
+  const sortOrderOptions = [
+    { id: 0, value: 'asc', description: 'Oldest to Newest' },
+    { id: 1, value: 'desc', description: 'Newest to Oldest' },
+  ]
+  // TODO - make default/initial `sortBy` value a user preference
+  const [sortBy, setSortBy] = useState(sortOrderOptions[1])
+  const updateSortBy = (value) =>
+    setSortBy(sortOrderOptions.find((option) => option.value === value))
+
   const [things, setThings] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [currentFilter, setCurrentFilter] = useState(() => {
@@ -53,7 +62,11 @@ const ThingsProvider = ({ children }) => {
       updateIsLoading(true)
       let queryParam
       if (currentFilter) {
-        queryParam = toQueryString({ include: 'tags', ...currentFilter })
+        queryParam = toQueryString({
+          sort: sortBy.value,
+          include: 'tags',
+          ...currentFilter,
+        })
       }
       const response = await fetch(
         `${config.backend.BASE_URL}/things${queryParam}`,
@@ -67,7 +80,7 @@ const ThingsProvider = ({ children }) => {
     }
     fetchThings()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [token, user, currentFilter])
+  }, [token, user, currentFilter, sortBy])
 
   return (
     <ThingsContext.Provider
@@ -78,6 +91,9 @@ const ThingsProvider = ({ children }) => {
         updateIsLoading,
         currentFilter,
         updateCurrentFilter,
+        sortBy,
+        updateSortBy,
+        sortOrderOptions,
       }}
     >
       {children}
