@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react'
-import { Heading } from '@chakra-ui/core'
 
 import { useThings } from '../contexts/ThingsContext'
-import { SEO } from '../components'
+import { PageHeader } from '../components'
 
 const Comments = () => {
   const { updateCurrentFilter } = useThings()
@@ -12,14 +11,7 @@ const Comments = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  return (
-    <>
-      <SEO title='Comments' />
-      <Heading as='h3' size='xl' mb={4} fontWeight='bold'>
-        Comments
-      </Heading>
-    </>
-  )
+  return <PageHeader seoTitle='Comments' pageHeading='Comments' />
 }
 
 export default Comments
