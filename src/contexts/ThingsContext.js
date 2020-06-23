@@ -47,6 +47,9 @@ const ThingsProvider = ({ children }) => {
     } else if (/\/tags\/[^/]+/.test(pathname)) {
       const tag = decodeURI(pathname.split('/')[2])
       return { tag }
+    } else if (pathname.includes('/search')) {
+      const q = pathname.split('/')[2]
+      return { q }
     } else {
       return {}
     }
