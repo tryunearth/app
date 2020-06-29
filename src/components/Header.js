@@ -16,12 +16,12 @@ import {
 import unearthLogo from '../assets/unearth-horizontal_lockup.svg'
 
 import { useAuth } from '../contexts/AuthContext'
-import { SyncButton } from '../components'
+import { SyncButton, SearchBar } from '../components'
 
 const Header = () => {
+  const show = false
   const navigate = useNavigate()
   const { user, logout } = useAuth()
-  const show = false
 
   return (
     <Flex
@@ -37,7 +37,7 @@ const Header = () => {
       borderBottomStyle='solid'
       borderBottomColor='gray.200'
     >
-      <Flex align='center' mr={5}>
+      <Flex maxW='250px' flex='1 0 auto' align='center' mr={8}>
         <Image src={unearthLogo} alt='Unearth logo' maxH='47px' />
       </Flex>
 
@@ -66,25 +66,36 @@ const Header = () => {
         </Box> */}
 
       <Box
-        display={{ sm: show ? 'block' : 'none', md: 'flex' }}
+        flex='4 1 0'
         mt={{ base: 4, md: 0 }}
+        display={{
+          sm: show ? 'block' : 'none',
+          md: 'flex',
+        }}
       >
-        <SyncButton />
-        <Menu>
-          <MenuButton as='button'>
-            <Avatar name={user.username} src={user.avatar_img} size='sm' />
-          </MenuButton>
-          <MenuList placement='bottom-end'>
-            <MenuGroup title={`Hello, ${user.username}`}>
-              <MenuItem onClick={() => navigate('/account')}>Account</MenuItem>
-              <MenuItem isDisabled title='Coming soon'>
-                Preferences
-              </MenuItem>
-            </MenuGroup>
-            <MenuDivider />
-            <MenuItem onClick={logout}>Logout</MenuItem>
-          </MenuList>
-        </Menu>
+        <Flex w='full' justify='space-between' align='center'>
+          <SearchBar />
+          <Flex flex={1}>
+            <SyncButton />
+            <Menu>
+              <MenuButton as='button'>
+                <Avatar name={user.username} src={user.avatar_img} size='sm' />
+              </MenuButton>
+              <MenuList placement='bottom-end'>
+                <MenuGroup title={`Hello, ${user.username}`}>
+                  <MenuItem onClick={() => navigate('/account')}>
+                    Account
+                  </MenuItem>
+                  <MenuItem isDisabled title='Coming soon'>
+                    Preferences
+                  </MenuItem>
+                </MenuGroup>
+                <MenuDivider />
+                <MenuItem onClick={logout}>Logout</MenuItem>
+              </MenuList>
+            </Menu>
+          </Flex>
+        </Flex>
       </Box>
     </Flex>
   )

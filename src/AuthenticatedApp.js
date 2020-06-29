@@ -1,7 +1,16 @@
 import React from 'react'
 import { Router, Redirect, useLocation } from '@reach/router'
 
-import { Account, Home, Subreddit, Tag, Comments, Posts, NSFW } from './pages'
+import {
+  Account,
+  Home,
+  Subreddit,
+  Tag,
+  Comments,
+  Posts,
+  NSFW,
+  Search,
+} from './pages'
 import { Layout } from './components'
 
 const NotFound = () => <Redirect from='/login' to='/' noThrow />
@@ -32,6 +41,8 @@ const AuthenticatedApp = () => {
         <Subreddit path='/subreddits/r/:sub' />
         <Subreddit path='/subreddits/u/:sub' />
         <Tag path='/tags/:tag' />
+
+        <Search path='/search/:query' />
       </Router>
     </Layout>
   )
